@@ -12,7 +12,7 @@ app_license = "mit"
 # include js, css files in header of desk.html
 # app_include_css = "/assets/tomna/css/tomna.css"
 # app_include_js = "/assets/tomna/js/tomna.js"
-app_include_js = "/assets/shift/js/operation.js"
+app_include_js = ["/assets/tomna/js/tomna.js"]
 # include js, css files in header of web template
 # web_include_css = "/assets/tomna/css/tomna.css"
 # web_include_js = "/assets/tomna/js/tomna.js"
@@ -28,7 +28,9 @@ app_include_js = "/assets/shift/js/operation.js"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+# doctype_js = {
+#     "Sales Order": "public/js/sales_order.js"
+# }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
