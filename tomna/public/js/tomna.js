@@ -94,6 +94,60 @@ function hideActionsForOperationUser() {
 // }
 
 
+function updateNotificationBadge() {
+    // Count unread notifications
+    const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+    console.log("Unread notifications found:", unreadCount);
+
+    // Target the nav item
+    const navItem = document.querySelector('.nav-item.dropdown.dropdown-notifications.dropdown-mobile');
+    if (!navItem) {
+        console.warn("⚠️ Notification nav item not found!");
+        return;
+    }
+
+    // Check if badge already exists
+    let badge = document.getElementById("notification-badge");
+    if (!badge) {
+        badge = document.createElement("span");
+        badge.id = "notification-badge";
+        badge.style.position = "absolute";
+        badge.style.top = "6px";
+        badge.style.right = "6px";
+        badge.style.background = "#007bff";   // blue
+        badge.style.color = "#fff";           // white text
+        badge.style.borderRadius = "50%";     // circle
+        badge.style.minWidth = "18px";
+        badge.style.height = "18px";
+        badge.style.fontSize = "11px";
+        badge.style.lineHeight = "18px";
+        badge.style.textAlign = "center";
+        badge.style.fontWeight = "bold";
+        badge.style.display = "none";
+        badge.style.zIndex = "10";
+
+        // Append into the button (so it overlays the bell)
+        const bellBtn = navItem.querySelector("button");
+        if (bellBtn) {
+            bellBtn.style.position = "relative"; // make bell the positioning container
+            bellBtn.appendChild(badge);
+        } else {
+            console.warn("⚠️ Bell button not found inside nav item!");
+            return;
+        }
+    }
+
+    // Update number
+    if (unreadCount > 0) {
+        badge.textContent = unreadCount;
+        badge.style.display = "inline-block";
+    } else {
+        badge.style.display = "none";
+    }
+}
+
+// Run on load + watch for changes
+setInterval(updateNotificationBadge, 2000);
 
 
 
