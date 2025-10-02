@@ -95,59 +95,59 @@ function hideActionsForOperationUser() {
 
 
 function updateNotificationBadge() {
-    // Count unread notifications
-    const unreadCount = document.querySelectorAll('.notification-item.unread').length;
-    console.log("Unread notifications found:", unreadCount);
+  // Count unread notifications
+  const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+    console.log("🔔 Unread notifications:", unreadCount);
+  // Find the common bell/notification icon (works for <a> and <button>)
+  const bell = document.querySelector(
+    '.nav-item.dropdown-notifications .nav-link.notifications-icon'
+  );
 
-    // Target the nav item
-    const navItem = document.querySelector('.nav-item.dropdown.dropdown-notifications.dropdown-mobile');
-    if (!navItem) {
-        console.warn("⚠️ Notification nav item not found!");
+  if (!bell)  {
+        console.warn("⚠️ Bell icon is not found!");
         return;
     }
 
-    // Check if badge already exists
-    let badge = document.getElementById("notification-badge");
-    if (!badge) {
-        badge = document.createElement("span");
-        badge.id = "notification-badge";
-        badge.style.position = "absolute";
-        badge.style.top = "6px";
-        badge.style.right = "6px";
-        badge.style.background = "#007bff";   // blue
-        badge.style.color = "#fff";           // white text
-        badge.style.borderRadius = "50%";     // circle
-        badge.style.minWidth = "18px";
-        badge.style.height = "18px";
-        badge.style.fontSize = "11px";
-        badge.style.lineHeight = "18px";
-        badge.style.textAlign = "center";
-        badge.style.fontWeight = "bold";
-        badge.style.display = "none";
-        badge.style.zIndex = "10";
+  // Remove any old badge
+  let badge = bell.querySelector('.notification-badge');
+  if (!badge) {
+    badge = document.createElement('span');
+    badge.className = 'notification-badge';
+    Object.assign(badge.style, {
+      position: 'absolute',
+      top: '6px',
+      right: '6px',
+      background: 'blue',
+      color: 'white',
+      borderRadius: '50%',
+      padding: '2px 6px',
+      fontSize: '11px',
+      fontWeight: 'bold',
+      lineHeight: '1',
+    });
+    bell.style.position = 'relative';
+    bell.appendChild(badge);
+  }
 
-        // Append into the <a> instead of <button>
-        const bellLink = navItem.querySelector("a.nav-link");
-        if (bellLink) {
-            bellLink.style.position = "relative"; // make <a> the positioning container
-            bellLink.appendChild(badge);
-        } else {
-            console.warn("⚠️ Bell link not found inside nav item!");
-            return;
-        }
-    }
-
-    // Update number
-    if (unreadCount > 0) {
-        badge.textContent = unreadCount;
-        badge.style.display = "inline-block";
-    } else {
-        badge.style.display = "none";
-    }
+  // Update badge number or hide if none
+  if (unreadCount > 0) {
+    badge.textContent = unreadCount;
+    badge.style.display = 'inline-block';
+  } else {
+    badge.style.display = 'none';
+  }
 }
 
-// Run on load + watch for changes
-setInterval(updateNotificationBadge, 2000);
+// Run once and also observe changes
+updateNotificationBadge();
+setInterval(updateNotificationBadge, 5000); // refresh every 5 sec
+
+
+
+
+
+
+
 
 
 
