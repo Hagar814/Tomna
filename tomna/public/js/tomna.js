@@ -126,13 +126,13 @@ function updateNotificationBadge() {
         badge.style.display = "none";
         badge.style.zIndex = "10";
 
-        // Append into the button (so it overlays the bell)
-        const bellBtn = navItem.querySelector("button");
-        if (bellBtn) {
-            bellBtn.style.position = "relative"; // make bell the positioning container
-            bellBtn.appendChild(badge);
+        // Append into the <a> instead of <button>
+        const bellLink = navItem.querySelector("a.nav-link");
+        if (bellLink) {
+            bellLink.style.position = "relative"; // make <a> the positioning container
+            bellLink.appendChild(badge);
         } else {
-            console.warn("⚠️ Bell button not found inside nav item!");
+            console.warn("⚠️ Bell link not found inside nav item!");
             return;
         }
     }
@@ -148,6 +148,8 @@ function updateNotificationBadge() {
 
 // Run on load + watch for changes
 setInterval(updateNotificationBadge, 2000);
+
+
 
 
 
